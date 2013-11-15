@@ -1,3 +1,5 @@
+package pacman;
+
 public class Edge{
 	Node start;
 	Node end;

@@ -1,3 +1,5 @@
+package pacman;
+
 import java.util.ArrayList;
 
 public class Node{
@@ -7,13 +9,13 @@ public class Node{
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
 
 	Node(boolean hasPill){
-		self.hasPill = hasPill;
+		this.hasPill = hasPill;
 	}
 	public void connectTo(Node node, int weight){
-		Edge e = new Edge(self, node, weight);
-		Edge e2 = new Edge(node, self, weight);
+		Edge e = new Edge(this, node, weight);
+		Edge e2 = new Edge(node, this, weight);
 		edges.add(e);
-		node.getEdges.add(e2);
+		node.getEdges().add(e2);
 	}
 	public ArrayList<Edge> getEdges(){
 		return edges;

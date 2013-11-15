@@ -82,6 +82,8 @@ public class Board extends JPanel implements ActionListener {
     short[] screendata;
     Timer timer;
 
+    PacManAI pacAI = new PacManAI(leveldata);
+
 
     public Board() {
 
@@ -130,6 +132,7 @@ public class Board extends JPanel implements ActionListener {
         if (dying) {
             Death();
         } else {
+            letAIThink();
             MovePacMan();
             DrawPacMan(g2d);
             moveGhosts(g2d);
@@ -137,6 +140,26 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    public void letAIThink(){
+        switch(pacAI.getMove()){
+            case 0: //left
+              reqdx=-1;
+              reqdy=0;
+              break;
+            case 1: // right
+              reqdx=1;
+              reqdy=0;
+              break;
+            case 2: // up
+              reqdx=0;
+              reqdy=-1;
+              break;
+            case 3: // down
+              reqdx=0;
+              reqdy=1;
+              break;
+        }
+    }
 
     public void ShowIntroScreen(Graphics2D g2d) {
 
