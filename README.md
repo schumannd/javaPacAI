@@ -6,7 +6,9 @@ simple AI for existing pac man game in Java
 How to start
 =======
 in ground directory type:
+
 javac code/*
+
 java code/PacMan 
 
 Note:
