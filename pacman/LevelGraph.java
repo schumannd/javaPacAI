@@ -4,16 +4,17 @@ import java.lang.Math;
 import java.util.ArrayList;
 
 public class LevelGraph{
-	ArrayList<Node> nodes = new ArrayList<Node>();
+	int dimension;
+	private ArrayList<Node> nodes = new ArrayList<Node>();
 	LevelGraph(short leveldata[]){
+		dimension = (int)Math.sqrt(leveldata.length);
 		createGraph(leveldata);
 	}
 
 	void createGraph(short leveldata[]){
-		int dimension =  (int)Math.sqrt(leveldata.length);
 		for(int i = 0; i < leveldata.length; i++){
 			// add node with Pill if value is over 15
-			Node current = new Node(leveldata[i] > 15);
+			Node current = new Node(leveldata[i] > 15, i%dimension, i/dimension);
 			nodes.add(current);
 			addEdges(i, leveldata, dimension, current);
 		}
@@ -26,5 +27,12 @@ public class LevelGraph{
 		if(i >= dimension && leveldata[i-dimension] > 15){
 			current.connectTo(nodes.get(i-dimension), 0);
 		}
+	}
+	ArrayList<Node> getNodes(){
+		return nodes;
+	}
+
+	void eatPill(int x, int y){
+		nodes.get(x + y*dimension).setPill(false);
 	}
 }

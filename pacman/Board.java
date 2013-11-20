@@ -82,7 +82,7 @@ public class Board extends JPanel implements ActionListener {
     short[] screendata;
     Timer timer;
 
-    PacManAI pacAI = new PacManAI(leveldata);
+    PacManAI pacAI = new PacManAI(leveldata, maxghosts);
 
 
     public Board() {
@@ -132,7 +132,8 @@ public class Board extends JPanel implements ActionListener {
         if (dying) {
             Death();
         } else {
-            letAIThink();
+            if(pacmanx % blocksize == 0 && pacmany % blocksize == 0)
+                letAIThink();
             MovePacMan();
             DrawPacMan(g2d);
             moveGhosts(g2d);
@@ -141,24 +142,11 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public void letAIThink(){
-        switch(pacAI.getMove()){
-            case 0: //left
-              reqdx=-1;
-              reqdy=0;
-              break;
-            case 1: // right
-              reqdx=1;
-              reqdy=0;
-              break;
-            case 2: // up
-              reqdx=0;
-              reqdy=-1;
-              break;
-            case 3: // down
-              reqdx=0;
-              reqdy=1;
-              break;
-        }
+        pacAI.setGhostPositionAndSpeed(ghostx, ghosty, ghostspeed, blocksize);
+        pacAI.setPacmanPosition(pacmanx, pacmany, blocksize);
+        int[] directions = pacAI.getMove();
+        reqdx=directions[0];
+        reqdy=directions[1];
     }
 
     public void ShowIntroScreen(Graphics2D g2d) {
@@ -310,6 +298,7 @@ public class Board extends JPanel implements ActionListener {
             if ((ch & 16) != 0) {
                 screendata[pos] = (short)(ch & 15);
                 score++;
+                pacAI.eatPill(pacmanx / blocksize, pacmany / blocksize);
             }
 
             if (reqdx != 0 || reqdy != 0) {
