@@ -3,8 +3,8 @@ package pacman;
 import java.util.ArrayList;
 
 public class Node{
-	private int x;
-	private int y;
+	int x;
+	int y;
 	private boolean hasPill;
 	private ArrayList<Edge> edges = new ArrayList<Edge>();
 

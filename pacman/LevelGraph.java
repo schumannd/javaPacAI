@@ -4,8 +4,9 @@ import java.lang.Math;
 import java.util.ArrayList;
 
 public class LevelGraph{
-	int dimension;
+	private int dimension;
 	private ArrayList<Node> nodes = new ArrayList<Node>();
+
 	LevelGraph(short leveldata[]){
 		dimension = (int)Math.sqrt(leveldata.length);
 		createGraph(leveldata);
@@ -28,11 +29,15 @@ public class LevelGraph{
 			current.connectTo(nodes.get(i-dimension), 0);
 		}
 	}
-	ArrayList<Node> getNodes(){
-		return nodes;
-	}
 
 	void eatPill(int x, int y){
-		nodes.get(x + y*dimension).setPill(false);
+		getNodeAt(x, y).setPill(false);
+	}
+
+	Node getNodeAt(int x, int y){
+		return nodes.get(x + y*dimension);
+	}
+	ArrayList<Node> getNodes(){
+		return nodes;
 	}
 }
