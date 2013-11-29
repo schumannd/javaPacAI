@@ -42,7 +42,7 @@ public class PacManAI{
 	}
 
 	public int[] getMove(){
-		int[] directions = runAwayFromGhostsCloserThan(4);
+		int[] directions = runAwayFromGhostsCloserThan(3);
 		// bad randomization Method
 		if(directions[0] == 0 && directions[1] == 0)
 			directions = runTowardsPillsCloserThan(20);

@@ -3,11 +3,12 @@ javaPacAI
 
 simple AI for existing pac man game in Java
 
+
 How to start
 =======
 in ground directory type:
 
-javac code/*
+javac code/*.java
 
 java code/PacMan 
 
@@ -18,4 +19,6 @@ http://zetcode.com/tutorials/javagamestutorial/pacman/
 PacMan.java was altered to use the PacMan AI
 
 
-
+TODOS:
+======
+make pacmans movement more deterministic.
