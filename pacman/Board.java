@@ -49,7 +49,7 @@ public class Board extends JPanel implements ActionListener {
     int deathcounter;
     int[] dx, dy;
     int[] ghostx, ghosty, ghostdx, ghostdy, ghostspeed;
-
+ 
     Image ghost;
     Image pacman1, pacman2up, pacman2left, pacman2right, pacman2down;
     Image pacman3up, pacman3down, pacman3left, pacman3right;
