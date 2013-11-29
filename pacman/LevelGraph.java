@@ -35,7 +35,11 @@ public class LevelGraph{
 	}
 
 	Node getNodeAt(int x, int y){
-		return nodes.get(x + y*dimension);
+		try{
+			return nodes.get(x + y*dimension);
+		}catch(Exception e){
+			return null;
+		}
 	}
 	ArrayList<Node> getNodes(){
 		return nodes;

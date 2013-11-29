@@ -42,16 +42,12 @@ public class PacManAI{
 	}
 
 	public int[] getMove(){
-		int[] directions = runAwayFromGhostsCloserThan(3);
+		int[] directions = runAwayFromGhostsCloserThan(4);
 		// bad randomization Method
 		if(directions[0] == 0 && directions[1] == 0)
 			directions = runTowardsPillsCloserThan(20);
-			// System.out.println("getPills");
+			System.out.println("getPills");
 			// directions = translateDirections(r.nextInt(4));
-		// Queue<Node> neigbours = new LinkedList<Node>();
-		// ArrayList<Edge> neighbourEdges = level.getNodeAt(pacX, pacY).getEdges();
-		// for(int i = 0; i < neighbourEdges.size(); i++)
-		// 	neigbours.add(neighbourEdges.get(i).end);
 		return directions;
 	}
 
@@ -108,11 +104,28 @@ public class PacManAI{
 	}
 
 	int[] setRunningDirection(int distX, int distY){
+		int[] directions = new int[] {0, 0};
 		if(Math.abs(distX) > Math.abs(distY)){
-			return new int[] {(int)Math.signum(distX), 0};
+			directions[0] = (int)Math.signum(distX);
 		}else{
-			return new int[] {0, (int)Math.signum(distY)};
+			directions[1] = (int)Math.signum(distY);
 		}
+		return avoidWalls(directions);
+	}
+
+	int[] avoidWalls(int[] directions){
+		Node current = level.getNodeAt(pacX, pacY);
+		Node toGoToNode = level.getNodeAt(pacX + directions[0], pacY + directions[1]);
+		ArrayList<Edge> neighbourEdges = current.getEdges();
+		for(int i = 0; i < neighbourEdges.size(); i++)
+			if(neighbourEdges.get(i).start == current &&
+				neighbourEdges.get(i).end == toGoToNode)
+				return directions;
+		System.out.println("collision detected");
+		System.out.println(directions[0] + " " + directions[1]);
+		int randomDirection = (int)Math.signum(r.nextFloat()-.5);
+		System.out.println(randomDirection);
+		return new int[]{directions[1]*randomDirection, directions[0]*randomDirection};
 	}
 
 	int[] runTowardsPillsCloserThan(int searchDepth){
@@ -124,8 +137,8 @@ public class PacManAI{
 		int[] returnDirections = new int[] {0, 0};
 		int closestGhost = radarRange;
 		for(int i = 0; i < ghostX.length; i++){
+			// ignore inactive ghosts which still have coordinates 0,0
 			if(ghostX[i] != 0 || ghostY[i] != 0){
-				// System.out.println("Ghost "+ " " + ghostX[i] + " " + ghostY[i]);
 				int distX = pacX - ghostX[i];
 				int distY = pacY - ghostY[i];
 				int dist = Math.abs(distX) + Math.abs(distY);
