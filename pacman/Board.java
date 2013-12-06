@@ -460,7 +460,7 @@ public class Board extends JPanel implements ActionListener {
         int i;
         for (i = 0; i < nrofblocks * nrofblocks; i++)
             screendata[i] = leveldata[i];
-
+        pacAI = new PacManAI(leveldata, maxghosts);
         LevelContinue();
     }
 
